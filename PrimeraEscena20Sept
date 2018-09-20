@@ -1,0 +1,119 @@
+
+
+import themidibus.*;
+MidiBus myBus;
+
+int notapresionada;
+int notasuelta;
+int[] notas = {40,42,43,45};
+int[] posicionesX = {40, 60, 80, 100};
+int[] posicionesY = {300, 300, 300, 300};
+int[] opacidades = {150, 150, 150, 150};
+ 
+// inicio acorde Horizontales
+int[] notas2 = {61,59,57,55,54,52,50};
+int[] largo = {80,80,80,80,80,80,80};
+int[] posicionesY2 = {10,30,50,70,90,110,130};
+int[] opacidades2 = {150,150,150,150,150,150,150};
+//fin acorde
+//-------------------------------------------
+
+// inicio circulo
+int[] notas3 = {36,38};
+int[] posicionesX3 = {30,30};
+int[] posicionesY3 = {60,60};
+int[] opacidades3 = {150,150};
+//fin circulo
+//-------------------------------------------
+
+
+void setup() {
+ 
+size(800,600);
+smooth();
+MidiBus.list(); // List all devices
+myBus = new MidiBus(this,"A-500S",0); // nanoKEY
+}
+//-------------------------------------------
+void draw(){
+  background(0);
+  for (int i = 0; i < posicionesX.length; i++) {
+    fill(50,220,40,200);  
+  rect(posicionesX[i],posicionesY[i],10,280,50);
+  }
+  
+// inicio acorde Horizontales
+   for (int i = 0; i < largo.length; i++) {
+     rect(200,posicionesY2[i],largo[i],10 );  //esto es lo que dibuja
+     }
+  //fin acorde
+  
+  // inicio circulo: x,y,width, height
+  for (int i = 0; i < posicionesX3.length; i++) {
+    fill(50,220,40,opacidades[i]);  
+ellipse(400, 300, posicionesX3[i], posicionesY3[i]);
+  }
+  //fin circulo
+  
+}
+
+//-------------------------------------------
+void noteOn(int channel, int pitch, int velocity) {
+  println("Pitch: " + pitch + " | Velocity: " + velocity);
+  notapresionada = pitch;
+ 
+  for (int i = 0; i < notas.length; i++) {
+    if(notas[i] ==notapresionada){//leer la posición i del arreglo notas 
+      posicionesY[i]=250; //esto es lo que crea
+    }
+  }
+  
+// inicio acorde Horizontales
+     for (int i = 0; i < notas2.length; i++) {
+    if(notas2[i] ==notapresionada){//leer la posición i del arreglo notas
+      largo[i]=500; //esto es lo que crea
+    }
+  }
+     //fin acorde
+      // inicio circulo
+     for (int i = 0; i < notas3.length; i++) {
+    if(notas3[i] ==notapresionada){//leer la posición i del arreglo notas
+      posicionesY3[i]=500; //esto es lo que crea
+      posicionesX3[i]=500; //esto es lo que crea
+    }
+  }
+
+  //fin circulo
+}
+
+//-------------------------------------------
+void noteOff(int channel, int pitch, int velocity) {
+  println("Pitch: " + pitch + " | Velocity: " + velocity);
+  notasuelta = pitch;
+  
+  for (int i = 0; i < notas.length; i++) {
+    if(notas[i] ==notasuelta){//leer la posición i del arreglo notas
+      posicionesY[i]=300;
+    }
+  }
+// inicio acorde Horizontales
+        for (int i = 0; i < notas2.length; i++) {
+    if(notas2[i] ==notasuelta){//leer la posición i del arreglo notas
+      largo[i]=80;
+    }
+  }
+             //fin acorde
+             
+             // inicio circulo 
+             
+              for (int i = 0; i < notas3.length; i++) {
+    if(notas3[i] ==notasuelta){//leer la posición i del arreglo notas
+      posicionesY3[i]=60; //esto es lo que crea
+      posicionesX3[i]=60; //esto es lo que crea
+    }
+  }
+  
+    //fin circulo
+  
+
+}
