@@ -1,14 +1,17 @@
 
 
+
 import themidibus.*;
 MidiBus myBus;
 
 int notapresionada;
 int notasuelta;
+
+// inicio acorde verticales
 int[] notas = {40,42,43,45};
 int[] posicionesX = {40, 60, 80, 100};
 int[] posicionesY = {300, 300, 300, 300};
-int[] opacidades = {150, 150, 150, 150};
+int[] opacidades = {200, 200, 200, 200};
  
 // inicio acorde Horizontales
 int[] notas2 = {61,59,57,55,54,52,50};
@@ -18,14 +21,21 @@ int[] opacidades2 = {150,150,150,150,150,150,150};
 //fin acorde
 //-------------------------------------------
 
-// inicio circulo
-int[] notas3 = {36,38};
-int[] posicionesX3 = {30,30};
-int[] posicionesY3 = {60,60};
-int[] opacidades3 = {150,150};
-//fin circulo
+// inicio circulo pequeno nota re
+int[] notas3 = {38};
+int[] posicionesX3 = {1};
+int[] posicionesY3 = {1};
+int[] opacidades3 = {50};
+//fin circulo pequeno nota re
 //-------------------------------------------
 
+// inicio circulo grande nota do
+int[] notas4 = {36};
+int[] posicionesX4 = {1};
+int[] posicionesY4 = {1};
+int[] opacidades4 = {100};
+//fin circulo grande nota do
+//-------------------------------------------
 
 void setup() {
  
@@ -37,53 +47,89 @@ myBus = new MidiBus(this,"A-500S",0); // nanoKEY
 //-------------------------------------------
 void draw(){
   background(0);
+  // inicio acorde verticales
+  
   for (int i = 0; i < posicionesX.length; i++) {
     fill(50,220,40,200);  
+    
+    //inicio color
+//    noStroke();
+//colorMode(RGB, 250);
+//for (int i2 = 0; i2 < posicionesX.length; i2++) {
+//  for (int j = 0; j < posicionesX[i]; j++) {
+//    fill(i2, j,j);
   rect(posicionesX[i],posicionesY[i],10,280,50);
-  }
+  //}
+      //fin color//
+    // inicio acorde verticales
+}
+
+    
+ // rect(posicionesX[i],posicionesY[i],10,280,50);
+  //}
   
 // inicio acorde Horizontales
    for (int i = 0; i < largo.length; i++) {
      rect(200,posicionesY2[i],largo[i],10 );  //esto es lo que dibuja
      }
-  //fin acorde
+  //fin acordes horizontales
   
-  // inicio circulo: x,y,width, height
+// inicio circulo pequeño nota re x,y,width, height
   for (int i = 0; i < posicionesX3.length; i++) {
-    fill(50,220,40,opacidades[i]);  
+    fill(136,66,193,opacidades3[i]);  
 ellipse(400, 300, posicionesX3[i], posicionesY3[i]);
   }
-  //fin circulo
+// fin circulo pequeño nota re
   
+
+// inicio circulo grande nota do x,y,width, height
+  for (int i = 0; i < posicionesX4.length; i++) {
+    fill(191,187,64,opacidades4[i]);  
+ellipse(400, 300, posicionesX4[i], posicionesY4[i]);
+  }
+// fin circulo grande nota do
+
 }
 
 //-------------------------------------------
 void noteOn(int channel, int pitch, int velocity) {
   println("Pitch: " + pitch + " | Velocity: " + velocity);
   notapresionada = pitch;
- 
+  
+  
+  // inicio Notas verticales
   for (int i = 0; i < notas.length; i++) {
     if(notas[i] ==notapresionada){//leer la posición i del arreglo notas 
       posicionesY[i]=250; //esto es lo que crea
     }
   }
-  
-// inicio acorde Horizontales
+   //fin notas verticales
+  // inicio Notas Horizontales
      for (int i = 0; i < notas2.length; i++) {
     if(notas2[i] ==notapresionada){//leer la posición i del arreglo notas
       largo[i]=500; //esto es lo que crea
     }
   }
-     //fin acorde
-      // inicio circulo
+     //fin notas horizontales
+      // inicio circulo pequeño nota re
      for (int i = 0; i < notas3.length; i++) {
     if(notas3[i] ==notapresionada){//leer la posición i del arreglo notas
-      posicionesY3[i]=500; //esto es lo que crea
-      posicionesX3[i]=500; //esto es lo que crea
+      posicionesY3[i]=300; //esto es lo que crea
+      posicionesX3[i]=300; //esto es lo que crea
     }
   }
 
-  //fin circulo
+  //fin circulo  pequeño nota re
+  
+        // inicio circulo grande nota do
+     for (int i = 0; i < notas4.length; i++) {
+    if(notas4[i] ==notapresionada){//leer la posición i del arreglo notas
+      posicionesY4[i]=550; //esto es lo que crea
+      posicionesX4[i]=550; //esto es lo que crea
+    }
+  }
+
+  //fin circulo grande nota do
 }
 
 //-------------------------------------------
@@ -104,8 +150,7 @@ void noteOff(int channel, int pitch, int velocity) {
   }
              //fin acorde
              
-             // inicio circulo 
-             
+             // inicio circulo pequeño nota re
               for (int i = 0; i < notas3.length; i++) {
     if(notas3[i] ==notasuelta){//leer la posición i del arreglo notas
       posicionesY3[i]=60; //esto es lo que crea
@@ -113,7 +158,17 @@ void noteOff(int channel, int pitch, int velocity) {
     }
   }
   
-    //fin circulo
+    //fin circulo pequeño nota re
+ // inicio circulo grande nota do
+              for (int i = 0; i < notas4.length; i++) {
+    if(notas4[i] ==notasuelta){//leer la posición i del arreglo notas
+      posicionesY4[i]=60; //esto es lo que crea
+      posicionesX4[i]=60; //esto es lo que crea
+    }
+  }
   
+ // inicio circulo grande nota do
 
 }
+
+
