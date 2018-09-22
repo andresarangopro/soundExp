@@ -1,0 +1,93 @@
+import themidibus.*;
+MidiBus myBus;
+
+int notapresionada;
+int notasuelta;
+
+// inicio acorde verticales
+int[] notas = {40,42,43,45};
+int[] posicionesX = {400, 500, 600, 700};
+int[] posicionesY = {80, 250, 500, 700};
+int[] opacidades = {200, 200, 200, 200};
+ 
+// inicio acorde Horizontales
+int[] notas2 = {61,59,57,55,54,52,50};
+int[] largo = {80,80,80,80,80,80,80};
+int[] posicionesY2 = {10,30,50,70,90,110,130};
+int[] opacidades2 = {150,150,150,150,150,150,150};
+//fin acorde
+//-------------------------------------------
+
+// inicio circulo pequeno nota re
+int[] notas3 = {38};
+int[] posicionesX3 = {1};
+int[] posicionesY3 = {1};
+int[] opacidades3 = {50};
+//fin circulo pequeno nota re
+//-------------------------------------------
+
+// inicio circulo grande nota do
+int[] notas4 = {36};
+int[] posicionesX4 = {1};
+int[] posicionesY4 = {1};
+int[] opacidades4 = {100};
+//fin circulo grande nota do
+//-------------------------------------------
+
+void setup() {
+    background(0);
+  size(800,600);
+ frameRate(30);
+  noFill();
+
+smooth();
+MidiBus.list(); // List all devices
+myBus = new MidiBus(this,"A-500S",0); // nanoKEY
+}
+//-------------------------------------------
+void draw(){
+
+  // inicio bezier 1 
+  for (int i = 0; i < posicionesX.length; i+=200) {
+  // curv XXX  posH posV
+    bezier(posicionesX[i]-(i/2.0), notapresionada, notapresionada, notapresionada, 440, 300, 200, 300);
+  }
+  // fin bezier 1 
+
+
+}
+
+//-------------------------------------------
+void noteOn(int channel, int pitch, int velocity) {
+  println("Pitch: " + pitch + " | Velocity: " + velocity);
+  notapresionada = pitch;
+  
+  
+  // inicio bezier 1 verticales
+  for (int i = 0; i < notas.length; i++) {
+    if(notas[i] ==notapresionada){//leer la posición i del arreglo notas 
+      stroke(random(1,100),random(1,255),random(1,255));
+      strokeWeight(2);
+      notapresionada=notapresionada*2; //esto es lo que crea
+
+    }
+  }
+  //fin bezier 1 
+  
+}
+
+//-------------------------------------------
+void noteOff(int channel, int pitch, int velocity) {
+  println("Pitch: " + pitch + " | Velocity: " + velocity);
+  notasuelta = pitch;
+  
+  // inicio bezier 1 verticales
+  for (int i = 0; i < notas.length; i++) {
+    if(notas[i] ==notasuelta){//leer la posición i del arreglo notas
+      stroke(0,0,0);
+
+    }
+  }
+  // fin bezier 1 verticales
+
+}
