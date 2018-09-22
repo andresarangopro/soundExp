@@ -1,0 +1,82 @@
+import themidibus.*;
+MidiBus myBus;
+float angulo;
+float radio;
+float cx, cy, x, y;
+int notapresionada;
+int notasuelta;
+ 
+int[] notas = {40,42,43,45};
+int[] posicionesX = {120,320,500,680};
+int[] posicionesY = {480,370,240,120};
+int[] opacidades = {200,200,200,200};
+//-------------------------------------------
+
+void setup() {
+  background(0);
+  angulo = 30;
+  radio = 57;
+  size(800,600);
+  frameRate(30);
+  noFill();
+  smooth();
+  MidiBus.list(); // List all devices
+  myBus = new MidiBus(this,"A-500S",0); // nanoKEY
+}
+//-------------------------------------------
+void draw(){
+
+  
+ // inicio nota 1
+  for (int i = 0; i < posicionesX.length; i++) {
+    angulo= random(0,2*PI);
+    radio= random(20, 96);
+    cy = radio * sin(angulo);
+    cx = radio * cos(angulo); 
+    line(x-cx, y-cy,x+cx,y+cy);
+  }
+ //fin nota 1
+
+  }
+//-------------------------------------------
+void noteOn(int channel, int pitch, int velocity) {
+  println("Pitch: " + pitch + " | Velocity: " + velocity);
+  notapresionada = pitch;
+  
+  
+  // inicio nota 1
+  for (int i = 0; i < notas.length; i++) {
+  if (notas[i] ==notapresionada ){  // HAY DOS PREGUNTAS con una y que es &&
+
+// lleva doble igual porque no es una asignación sino una pregunta de que tsi tal cosa es igual
+  angulo= random(0,2*PI);
+  radio= random(20, 96);
+  stroke(random(20,150),random(20,150),random(20,150),100);
+  x =posicionesX[i];
+  y =posicionesY[i];
+
+  cy = radio * sin(angulo);
+  cx = radio * cos(angulo);
+        
+  line(x-cx, y-cy,x+cx,y+cy);       
+
+}
+  }
+  //fin nota 1
+}
+
+//-------------------------------------------
+void noteOff(int channel, int pitch, int velocity) {
+  println("Pitch: " + pitch + " | Velocity: " + velocity);
+  notasuelta = pitch;
+  
+  // inicio nota 1
+  for (int i = 0; i < notas.length; i++) {
+    if(notas[i] ==notasuelta){//leer la posición i del arreglo notas
+      stroke(0,0,0);
+
+    }
+  }
+  // fin nota 1
+
+}
